@@ -7,6 +7,7 @@ import android.view.ViewGroup
 import android.widget.TextView
 import androidx.recyclerview.widget.RecyclerView
 import br.com.niltoneapontes.orgs.R
+import br.com.niltoneapontes.orgs.databinding.ProductBinding
 
 class ListProductsAdapter(
     private val context: Context,
@@ -14,6 +15,7 @@ class ListProductsAdapter(
 ) : RecyclerView.Adapter<ListProductsAdapter.ViewHolder>() {
 
     class ViewHolder(view: View): RecyclerView.ViewHolder(view) {
+
         fun bind(product: Product) {
             val name = itemView.findViewById<TextView>(R.id.title)
             val description = itemView.findViewById<TextView>(R.id.description)
@@ -26,10 +28,11 @@ class ListProductsAdapter(
     }
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ViewHolder {
-        val layoutInflater = LayoutInflater.from(context)
-        val view = layoutInflater.inflate(R.layout.product, parent, false)
+        val binding = ProductBinding.inflate(LayoutInflater.from(context),
+                parent,
+                false)
 
-        return ViewHolder(view)
+        return ViewHolder(binding.root)
     }
 
     override fun getItemCount(): Int {
