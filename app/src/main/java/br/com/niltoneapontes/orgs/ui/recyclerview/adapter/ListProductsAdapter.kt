@@ -8,6 +8,8 @@ import android.widget.TextView
 import androidx.recyclerview.widget.RecyclerView
 import br.com.niltoneapontes.orgs.R
 import br.com.niltoneapontes.orgs.databinding.ProductBinding
+import java.text.NumberFormat
+import java.util.*
 
 class ListProductsAdapter(
     private val context: Context,
@@ -21,9 +23,13 @@ class ListProductsAdapter(
             val description = itemView.findViewById<TextView>(R.id.description)
             val value = itemView.findViewById<TextView>(R.id.value)
 
+            val currencyInstanceFormatter = NumberFormat.getCurrencyInstance(Locale("pt", "br"))
+
+            val valueString = currencyInstanceFormatter.format(product.value)
+
             name.text = product.name
             description.text = product.description
-            value.text = product.value.toPlainString()
+            value.text = valueString
         }
     }
 
