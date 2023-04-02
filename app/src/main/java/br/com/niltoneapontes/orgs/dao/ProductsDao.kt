@@ -1,6 +1,7 @@
 package br.com.niltoneapontes.orgs.dao
 
 import br.com.niltoneapontes.orgs.ui.recyclerview.adapter.Product
+import java.math.BigDecimal
 
 class ProductsDao {
 
@@ -13,6 +14,12 @@ class ProductsDao {
     }
 
     companion object {
-        private val products = mutableListOf<Product>()
+        private val products = mutableListOf<Product>(
+            Product(
+                name="Cesta de frutas",
+                description = "Maçã, pera e uvas",
+                value = BigDecimal("19.99")
+            )
+        )
     }
 }
