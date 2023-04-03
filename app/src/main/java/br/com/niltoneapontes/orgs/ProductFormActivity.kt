@@ -23,7 +23,7 @@ class ProductFormActivity : AppCompatActivity(R.layout.activity_product_form) {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        (this as AppCompatActivity).supportActionBar!!.title = "Novo Produto"
+        title = "Adicionar Produto"
         configureButtonAction()
         setContentView(binding.root)
 
@@ -31,7 +31,10 @@ class ProductFormActivity : AppCompatActivity(R.layout.activity_product_form) {
 
         bindingImageForm.reloadButton.setOnClickListener {
             url = bindingImageForm.urlImageInput.text.toString()
-            bindingImageForm.imageFormImageView.load(url)
+            bindingImageForm.imageFormImageView.load(url) {
+                fallback(R.drawable.baseline_error_outline_24)
+                error(R.drawable.baseline_error_outline_24)
+            }
         }
 
         binding.formImageView.setOnClickListener {
@@ -39,7 +42,10 @@ class ProductFormActivity : AppCompatActivity(R.layout.activity_product_form) {
                 .setView(bindingImageForm.root)
                 .setPositiveButton("Confirmar") { _, _ ->
                     url = bindingImageForm.urlImageInput.text.toString()
-                    binding.formImageView.load(url)
+                    binding.formImageView.load(url) {
+                        fallback(R.drawable.baseline_error_outline_24)
+                        error(R.drawable.baseline_error_outline_24)
+                    }
                 }
                 .setNegativeButton("Cancelar") { _, _ -> }
                 .show()

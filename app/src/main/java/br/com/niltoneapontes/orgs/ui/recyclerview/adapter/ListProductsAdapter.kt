@@ -24,7 +24,14 @@ class ListProductsAdapter(
             val description = binding.description
             val value = binding.value
 
-            binding.imageView.load("https://images.pexels.com/photos/2966150/pexels-photo-2966150.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=2")
+            if (product.image == null) {
+                binding.imageView.visibility = View.GONE
+            }
+
+            binding.imageView.load(product.image) {
+                fallback(R.drawable.baseline_error_outline_24)
+                error(R.drawable.baseline_error_outline_24)
+            }
 
             val currencyInstanceFormatter = NumberFormat.getCurrencyInstance(Locale("pt", "br"))
 
