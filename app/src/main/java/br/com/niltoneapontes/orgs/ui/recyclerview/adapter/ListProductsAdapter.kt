@@ -8,6 +8,7 @@ import android.widget.TextView
 import androidx.recyclerview.widget.RecyclerView
 import br.com.niltoneapontes.orgs.R
 import br.com.niltoneapontes.orgs.databinding.ProductBinding
+import coil.load
 import java.text.NumberFormat
 import java.util.*
 
@@ -16,12 +17,14 @@ class ListProductsAdapter(
     private val products: List<Product>
 ) : RecyclerView.Adapter<ListProductsAdapter.ViewHolder>() {
 
-    class ViewHolder(view: View): RecyclerView.ViewHolder(view) {
+    class ViewHolder(private val binding: ProductBinding): RecyclerView.ViewHolder(binding.root) {
 
         fun bind(product: Product) {
-            val name = itemView.findViewById<TextView>(R.id.title)
-            val description = itemView.findViewById<TextView>(R.id.description)
-            val value = itemView.findViewById<TextView>(R.id.value)
+            val name = binding.title
+            val description = binding.description
+            val value = binding.value
+
+            binding.imageView.load("https://images.pexels.com/photos/2966150/pexels-photo-2966150.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=2")
 
             val currencyInstanceFormatter = NumberFormat.getCurrencyInstance(Locale("pt", "br"))
 
@@ -38,7 +41,7 @@ class ListProductsAdapter(
                 parent,
                 false)
 
-        return ViewHolder(binding.root)
+        return ViewHolder(binding)
     }
 
     override fun getItemCount(): Int {

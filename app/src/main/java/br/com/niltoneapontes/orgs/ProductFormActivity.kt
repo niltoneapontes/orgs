@@ -5,10 +5,13 @@ import android.util.Log
 import android.widget.Button
 import android.widget.EditText
 import android.widget.Toast
+import androidx.appcompat.app.AlertDialog
 import androidx.appcompat.app.AppCompatActivity
 import br.com.niltoneapontes.orgs.dao.ProductsDao
 import br.com.niltoneapontes.orgs.databinding.ActivityProductFormBinding
+import br.com.niltoneapontes.orgs.databinding.FormImageBinding
 import br.com.niltoneapontes.orgs.ui.recyclerview.adapter.Product
+import coil.load
 import java.math.BigDecimal
 
 class ProductFormActivity : AppCompatActivity(R.layout.activity_product_form) {
@@ -16,11 +19,32 @@ class ProductFormActivity : AppCompatActivity(R.layout.activity_product_form) {
         ActivityProductFormBinding.inflate(layoutInflater)
     }
 
+    private var url: String? = null
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         (this as AppCompatActivity).supportActionBar!!.title = "Novo Produto"
         configureButtonAction()
         setContentView(binding.root)
+
+        val bindingImageForm = FormImageBinding.inflate(layoutInflater)
+
+        bindingImageForm.reloadButton.setOnClickListener {
+            url = bindingImageForm.urlImageInput.text.toString()
+            bindingImageForm.imageFormImageView.load(url)
+        }
+
+        binding.formImageView.setOnClickListener {
+            AlertDialog.Builder(this)
+                .setView(bindingImageForm.root)
+                .setPositiveButton("Confirmar") { _, _ ->
+                    url = bindingImageForm.urlImageInput.text.toString()
+                    binding.formImageView.load(url)
+                }
+                .setNegativeButton("Cancelar") { _, _ -> }
+                .show()
+
+        }
     }
 
     private fun configureButtonAction() {
@@ -56,7 +80,8 @@ class ProductFormActivity : AppCompatActivity(R.layout.activity_product_form) {
         val product = Product(
             name = name,
             description = description,
-            value = value
+            value = value,
+            image = url
         )
 
         Log.i("Product: ", product.toString())
