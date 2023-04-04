@@ -2,12 +2,9 @@ package br.com.niltoneapontes.orgs
 
 import android.os.Bundle
 import android.util.Log
-import android.widget.Button
-import android.widget.EditText
 import android.widget.Toast
 import androidx.appcompat.app.AlertDialog
 import androidx.appcompat.app.AppCompatActivity
-import br.com.niltoneapontes.orgs.dao.ProductsDao
 import br.com.niltoneapontes.orgs.database.dao.AppDatabase
 import br.com.niltoneapontes.orgs.databinding.ActivityProductFormBinding
 import br.com.niltoneapontes.orgs.databinding.FormImageBinding

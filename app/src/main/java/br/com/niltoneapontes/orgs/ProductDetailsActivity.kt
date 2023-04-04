@@ -4,8 +4,6 @@ import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.util.Log
-import androidx.viewbinding.ViewBinding
-import br.com.niltoneapontes.orgs.databinding.ActivityMainBinding
 import br.com.niltoneapontes.orgs.databinding.ActivityProductDetailsBinding
 import coil.load
 import java.math.BigDecimal
