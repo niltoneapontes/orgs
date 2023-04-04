@@ -10,7 +10,9 @@ import androidx.appcompat.app.AlertDialog
 import androidx.appcompat.app.AppCompatActivity
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
+import androidx.room.Room
 import br.com.niltoneapontes.orgs.dao.ProductsDao
+import br.com.niltoneapontes.orgs.database.dao.AppDatabase
 import br.com.niltoneapontes.orgs.databinding.ActivityMainBinding
 import br.com.niltoneapontes.orgs.ui.recyclerview.adapter.ListProductsAdapter
 import br.com.niltoneapontes.orgs.ui.recyclerview.adapter.Product
@@ -44,9 +46,10 @@ class MainActivity : AppCompatActivity() {
 
     private fun configureListProductsActivity() {
         val recyclerView = binding.recyclerView
-        val productsDao = ProductsDao()
+        val db = AppDatabase.getInstance(this)
+        val productDao = db.productDao()
         recyclerView.adapter = ListProductsAdapter(
-            context = this, products = productsDao.getAll()
+            context = this, products = productDao.getAll()
         )
         recyclerView.layoutManager = LinearLayoutManager(this)
     }

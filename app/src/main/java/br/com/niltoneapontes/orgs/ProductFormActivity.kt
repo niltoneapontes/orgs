@@ -8,6 +8,7 @@ import android.widget.Toast
 import androidx.appcompat.app.AlertDialog
 import androidx.appcompat.app.AppCompatActivity
 import br.com.niltoneapontes.orgs.dao.ProductsDao
+import br.com.niltoneapontes.orgs.database.dao.AppDatabase
 import br.com.niltoneapontes.orgs.databinding.ActivityProductFormBinding
 import br.com.niltoneapontes.orgs.databinding.FormImageBinding
 import br.com.niltoneapontes.orgs.ui.recyclerview.adapter.Product
@@ -55,12 +56,13 @@ class ProductFormActivity : AppCompatActivity(R.layout.activity_product_form) {
 
     private fun configureButtonAction() {
         val buttonInput = binding.buttonSave
-        val productsDao = ProductsDao()
+        val db = AppDatabase.getInstance(this)
+        val productDao = db.productDao()
 
         buttonInput.setOnClickListener {
             val product = createProduct()
-            productsDao.add(product)
-            Log.i("Products DAO: ", productsDao.getAll().toString())
+            productDao.add(product)
+            Log.i("Products DAO: ", productDao.getAll().toString())
             Toast.makeText(this, "Produto adicionado", Toast.LENGTH_LONG).show()
             finish()
         }

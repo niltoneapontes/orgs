@@ -1,5 +1,7 @@
 package br.com.niltoneapontes.orgs.dao
 
+import androidx.room.Dao
+import androidx.room.Query
 import br.com.niltoneapontes.orgs.ui.recyclerview.adapter.Product
 import java.math.BigDecimal
 
