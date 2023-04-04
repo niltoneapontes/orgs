@@ -8,7 +8,7 @@ import androidx.room.TypeConverters
 import br.com.niltoneapontes.orgs.database.converter.Converter
 import br.com.niltoneapontes.orgs.ui.recyclerview.adapter.Product
 
-@Database(entities = [Product::class], version = 1)
+@Database(entities = [Product::class], version = 1, exportSchema = false)
 @TypeConverters(Converter::class)
 abstract class AppDatabase: RoomDatabase() {
     abstract fun productDao(): ProductDao
