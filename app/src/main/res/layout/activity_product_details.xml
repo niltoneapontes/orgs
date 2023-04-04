@@ -1,0 +1,74 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:fillViewport="true"
+    >
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        tools:context=".ProductDetailsActivity">
+
+        <ImageView
+            android:id="@+id/productImageViewDetail"
+            android:layout_width="0dp"
+            android:layout_height="200dp"
+            android:contentDescription="Product image"
+            android:background="#c1c1c1"
+            android:scaleType="centerCrop"
+            app:layout_constraintBottom_toTopOf="@+id/productNameDetail"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            tools:srcCompat="@drawable/baseline_image_24" />
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:id="@+id/productValueDetail"
+            app:layout_constraintEnd_toEndOf="parent"
+            android:background="@drawable/value_background"
+            android:textSize="22sp"
+            android:fontFamily="@font/montserrat"
+            android:layout_margin="8dp"
+            android:paddingHorizontal="16dp"
+            android:textColor="@android:color/holo_green_dark"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/productImageViewDetail"
+            app:layout_constraintBottom_toBottomOf="@+id/productImageViewDetail"
+            tools:text="Exemplo"
+            />
+
+        <TextView
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:id="@+id/productNameDetail"
+            app:layout_constraintEnd_toEndOf="parent"
+            android:textSize="24sp"
+            android:fontFamily="@font/montserrat_bold"
+            android:layout_marginHorizontal="16dp"
+            android:layout_marginTop="32dp"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/productImageViewDetail"
+            tools:text="Exemplo"
+            />
+
+        <TextView
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:id="@+id/productDescriptionDetail"
+            app:layout_constraintEnd_toEndOf="parent"
+            android:textSize="20sp"
+            android:fontFamily="@font/montserrat"
+            android:layout_marginTop="0dp"
+            android:layout_marginHorizontal="16dp"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/productNameDetail"
+            tools:text="Exemplo"
+            />
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+</ScrollView>

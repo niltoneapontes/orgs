@@ -1,11 +1,14 @@
 package br.com.niltoneapontes.orgs.ui.recyclerview.adapter
 
 import android.content.Context
+import android.content.Intent
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.widget.TextView
+import androidx.core.content.ContextCompat
 import androidx.recyclerview.widget.RecyclerView
+import br.com.niltoneapontes.orgs.ProductDetailsActivity
 import br.com.niltoneapontes.orgs.R
 import br.com.niltoneapontes.orgs.databinding.ProductBinding
 import coil.load
@@ -17,7 +20,7 @@ class ListProductsAdapter(
     private val products: List<Product>
 ) : RecyclerView.Adapter<ListProductsAdapter.ViewHolder>() {
 
-    class ViewHolder(private val binding: ProductBinding): RecyclerView.ViewHolder(binding.root) {
+    class ViewHolder(private val context: Context, private val binding: ProductBinding): RecyclerView.ViewHolder(binding.root) {
 
         fun bind(product: Product) {
             val name = binding.title
@@ -40,6 +43,16 @@ class ListProductsAdapter(
             name.text = product.name
             description.text = product.description
             value.text = valueString
+
+            binding.productCard.setOnClickListener {
+                val intent = Intent(context, ProductDetailsActivity::class.java)
+                intent.putExtra("name", product.name)
+                intent.putExtra("image", product.image.toString())
+                intent.putExtra("description", product.description)
+                intent.putExtra("value", product.value.toString())
+
+                ContextCompat.startActivity(context, intent, null)
+            }
         }
     }
 
@@ -48,7 +61,7 @@ class ListProductsAdapter(
                 parent,
                 false)
 
-        return ViewHolder(binding)
+        return ViewHolder(parent.context, binding)
     }
 
     override fun getItemCount(): Int {
