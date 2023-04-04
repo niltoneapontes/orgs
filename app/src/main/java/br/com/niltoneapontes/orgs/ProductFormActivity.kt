@@ -18,6 +18,7 @@ class ProductFormActivity : AppCompatActivity(R.layout.activity_product_form) {
     }
 
     private var url: String? = null
+    private var productId = 0L
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -49,6 +50,17 @@ class ProductFormActivity : AppCompatActivity(R.layout.activity_product_form) {
                 .show()
 
         }
+
+        intent.getParcelableExtra<Product>("selected_product")?.let {
+            title = "Editar produto"
+            productId = it.id
+            url = it.image
+            binding.formImageView.load(it.image)
+            binding.nameInput.setText(it.name)
+            binding.descriptionInput.setText(it.description)
+            binding.valueInput.setText(it.value.toPlainString())
+
+        }
     }
 
     private fun configureButtonAction() {
@@ -58,9 +70,14 @@ class ProductFormActivity : AppCompatActivity(R.layout.activity_product_form) {
 
         buttonInput.setOnClickListener {
             val product = createProduct()
-            productDao.add(product)
-            Log.i("Products DAO: ", productDao.getAll().toString())
-            Toast.makeText(this, "Produto adicionado", Toast.LENGTH_LONG).show()
+
+            if (productId > 0) {
+                productDao.update(product)
+                Toast.makeText(this, "Produto editado", Toast.LENGTH_LONG).show()
+            } else {
+                productDao.add(product)
+                Toast.makeText(this, "Produto adicionado", Toast.LENGTH_LONG).show()
+            }
             finish()
         }
     }
@@ -83,6 +100,7 @@ class ProductFormActivity : AppCompatActivity(R.layout.activity_product_form) {
         }
 
         val product = Product(
+            id = productId,
             name = name,
             description = description,
             value = value,

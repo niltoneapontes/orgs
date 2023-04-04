@@ -46,6 +46,7 @@ class ListProductsAdapter(
 
             binding.productCard.setOnClickListener {
                 val intent = Intent(context, ProductDetailsActivity::class.java)
+                intent.putExtra("id", product.id)
                 intent.putExtra("name", product.name)
                 intent.putExtra("image", product.image.toString())
                 intent.putExtra("description", product.description)
