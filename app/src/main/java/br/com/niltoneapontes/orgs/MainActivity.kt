@@ -59,7 +59,6 @@ class MainActivity : AppCompatActivity() {
             val products = withContext(Dispatchers.IO) {
                 productDao.getAll()
             }
-            job.cancel()
 
             withContext(Dispatchers.Main) {
 
