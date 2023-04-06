@@ -26,20 +26,6 @@ class MainActivity : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(binding.root)
-
-        val numbersFlow = flow<Int> {
-            repeat(100) {
-                emit(it)
-                delay(1000)
-            }
-        }
-
-        lifecycleScope.launch {
-            numbersFlow.collect {number ->
-                Log.i("NUMBER", number.toString())
-
-            }
-        }
     }
 
     override fun onResume() {
