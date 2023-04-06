@@ -48,7 +48,6 @@ class MainActivity : AppCompatActivity() {
         val mainScope = MainScope()
         mainScope.launch {
             try {
-                throw Exception("Erro ao carregar produtos") // Testando catch
                 val products = withContext(Dispatchers.IO) {
                     productDao.getAll()
                 }
