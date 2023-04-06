@@ -24,8 +24,7 @@ class MainActivity : AppCompatActivity() {
 
         val mainScope = MainScope()
         mainScope.launch {
-            withContext(Dispatchers.IO){// consegue mudar o contexto da coroutine do MainDispatcher para o IODispatcher
-                delay(2000)
+            withContext(Dispatchers.IO){
                 configureListProductsActivity()
             }
 
