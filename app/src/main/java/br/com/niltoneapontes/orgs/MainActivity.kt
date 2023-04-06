@@ -55,7 +55,6 @@ class MainActivity : AppCompatActivity() {
 
         val mainScope = MainScope()
         mainScope.launch(coroutineExceptionHandler) {
-                throw Exception("oops")
                 val products = withContext(Dispatchers.IO) {
                     productDao.getAll()
                 }
