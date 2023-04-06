@@ -17,6 +17,9 @@ class MainActivity : AppCompatActivity() {
         ActivityMainBinding.inflate(layoutInflater)
     }
 
+    private val job = Job()
+
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(binding.root)
@@ -54,7 +57,6 @@ class MainActivity : AppCompatActivity() {
         }
 
         val mainScope = MainScope()
-        val job = Job()
         mainScope.launch(coroutineExceptionHandler + job) {
             val products = withContext(Dispatchers.IO) {
                 productDao.getAll()
@@ -70,5 +72,10 @@ class MainActivity : AppCompatActivity() {
 
         }
 
+    }
+
+    override fun onDestroy() {
+        super.onDestroy()
+        job.cancel()
     }
 }
