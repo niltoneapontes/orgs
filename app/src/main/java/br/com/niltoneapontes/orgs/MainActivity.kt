@@ -61,19 +61,14 @@ class MainActivity : AppCompatActivity() {
             val products = withContext(Dispatchers.IO) {
                 productDao.getAll()
             }
-
             withContext(Dispatchers.Main) {
-
                 recyclerView.adapter = ListProductsAdapter(
                     context = this@MainActivity, products = products
                 )
                 recyclerView.layoutManager = LinearLayoutManager(this@MainActivity)
             }
-
         }
-
     }
-
     override fun onDestroy() {
         super.onDestroy()
         job.cancel()
