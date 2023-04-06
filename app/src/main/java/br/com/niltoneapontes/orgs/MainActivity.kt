@@ -7,6 +7,9 @@ import androidx.recyclerview.widget.LinearLayoutManager
 import br.com.niltoneapontes.orgs.database.dao.AppDatabase
 import br.com.niltoneapontes.orgs.databinding.ActivityMainBinding
 import br.com.niltoneapontes.orgs.ui.recyclerview.adapter.ListProductsAdapter
+import kotlinx.coroutines.delay
+import kotlinx.coroutines.launch
+import kotlinx.coroutines.runBlocking
 
 class MainActivity : AppCompatActivity() {
 
@@ -15,6 +18,11 @@ class MainActivity : AppCompatActivity() {
     }
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
+        runBlocking {
+            launch {
+                delay(3000)
+            }
+        }
         setContentView(binding.root)
     }
 
