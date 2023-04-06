@@ -54,22 +54,22 @@ class MainActivity : AppCompatActivity() {
         }
 
         val mainScope = MainScope()
-        mainScope.launch(coroutineExceptionHandler) {
-                val products = withContext(Dispatchers.IO) {
-                    productDao.getAll()
-                }
+        val job = Job()
+        mainScope.launch(coroutineExceptionHandler + job) {
+            val products = withContext(Dispatchers.IO) {
+                productDao.getAll()
+            }
+            job.cancel()
 
-                withContext(Dispatchers.Main) {
-                    recyclerView.adapter = ListProductsAdapter(
-                        context = this@MainActivity, products = products
-                    )
+            withContext(Dispatchers.Main) {
 
-                    recyclerView.layoutManager = LinearLayoutManager(this@MainActivity)
-                }
+                recyclerView.adapter = ListProductsAdapter(
+                    context = this@MainActivity, products = products
+                )
+                recyclerView.layoutManager = LinearLayoutManager(this@MainActivity)
+            }
 
         }
-
-        mainScope.cancel()
 
     }
 }
