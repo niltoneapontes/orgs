@@ -2,6 +2,7 @@ package br.com.niltoneapontes.orgs
 
 import android.content.Intent
 import android.os.Bundle
+import android.util.Log
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import androidx.recyclerview.widget.LinearLayoutManager
@@ -15,6 +16,7 @@ class MainActivity : AppCompatActivity() {
     private val binding by lazy {
         ActivityMainBinding.inflate(layoutInflater)
     }
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(binding.root)
@@ -25,7 +27,7 @@ class MainActivity : AppCompatActivity() {
 
         val mainScope = MainScope()
         mainScope.launch {
-            withContext(Dispatchers.IO){
+            withContext(Dispatchers.IO) {
                 configureListProductsActivity()
             }
 
@@ -45,9 +47,15 @@ class MainActivity : AppCompatActivity() {
         val recyclerView = binding.recyclerView
         val db = AppDatabase.getInstance(this)
         val productDao = db.productDao()
+
+        val coroutineExceptionHandler = CoroutineExceptionHandler { coroutineContext, throwable ->
+            Log.e("THROWABLE", throwable.toString())
+            Toast.makeText(this@MainActivity, "Ocorreu um erro", Toast.LENGTH_LONG).show()
+        }
+
         val mainScope = MainScope()
-        mainScope.launch {
-            try {
+        mainScope.launch(coroutineExceptionHandler) {
+                throw Exception("oops")
                 val products = withContext(Dispatchers.IO) {
                     productDao.getAll()
                 }
@@ -59,9 +67,7 @@ class MainActivity : AppCompatActivity() {
 
                     recyclerView.layoutManager = LinearLayoutManager(this@MainActivity)
                 }
-            } catch (e: Exception) {
-                Toast.makeText(this@MainActivity, e.message, Toast.LENGTH_LONG).show()
-            }
+
         }
 
     }
