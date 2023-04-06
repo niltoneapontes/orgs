@@ -7,10 +7,7 @@ import androidx.recyclerview.widget.LinearLayoutManager
 import br.com.niltoneapontes.orgs.database.dao.AppDatabase
 import br.com.niltoneapontes.orgs.databinding.ActivityMainBinding
 import br.com.niltoneapontes.orgs.ui.recyclerview.adapter.ListProductsAdapter
-import kotlinx.coroutines.MainScope
-import kotlinx.coroutines.delay
-import kotlinx.coroutines.launch
-import kotlinx.coroutines.runBlocking
+import kotlinx.coroutines.*
 
 class MainActivity : AppCompatActivity() {
 
@@ -26,9 +23,12 @@ class MainActivity : AppCompatActivity() {
         super.onResume()
 
         val mainScope = MainScope()
-        mainScope.launch { // ainda está sendo executado na main thread, porém sem bloquear o andamento
-            delay(2000)
-            configureListProductsActivity()
+        mainScope.launch {
+            withContext(Dispatchers.IO){// consegue mudar o contexto da coroutine do MainDispatcher para o IODispatcher
+                delay(2000)
+                configureListProductsActivity()
+            }
+
         }
         configureFloatActionButton()
     }
