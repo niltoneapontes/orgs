@@ -5,11 +5,14 @@ import android.os.Bundle
 import android.util.Log
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
+import androidx.lifecycle.lifecycleScope
 import androidx.recyclerview.widget.LinearLayoutManager
 import br.com.niltoneapontes.orgs.database.dao.AppDatabase
 import br.com.niltoneapontes.orgs.databinding.ActivityMainBinding
 import br.com.niltoneapontes.orgs.ui.recyclerview.adapter.ListProductsAdapter
 import kotlinx.coroutines.*
+import kotlinx.coroutines.flow.collect
+import kotlinx.coroutines.flow.flow
 
 class MainActivity : AppCompatActivity() {
 
@@ -23,6 +26,20 @@ class MainActivity : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(binding.root)
+
+        val numbersFlow = flow<Int> {
+            repeat(100) {
+                emit(it)
+                delay(1000)
+            }
+        }
+
+        lifecycleScope.launch {
+            numbersFlow.collect {number ->
+                Log.i("NUMBER", number.toString())
+
+            }
+        }
     }
 
     override fun onResume() {
